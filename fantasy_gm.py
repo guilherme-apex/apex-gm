@@ -11,7 +11,7 @@ from espn_api.basketball import League
 import apex_config as cfg 
 
 # ==============================================================================
-# 1. CONFIGURAÇÃO (APEX V81 COMMISSIONER GOLD)
+# 1. CONFIGURAÇÃO
 # ==============================================================================
 st.set_page_config(page_title="Apex V81 GM", layout="wide", page_icon="🏛️")
 
@@ -345,7 +345,7 @@ app_mode = st.sidebar.selectbox("Select Mode:", ["🌍 General Analysis (X/Twitt
 if 'scan_results' not in st.session_state: st.session_state.scan_results = None
 if 'all_players_global' not in st.session_state: st.session_state.all_players_global = []
 
-# MODO GERAL (MANTIDO IDÊNTICO)
+# MODO GERAL
 if app_mode == "🌍 General Analysis (X/Twitter)":
     tool = st.sidebar.radio("Global Tools:", ["🚀 Smart Scanner", "⚖️ Trade Calculator", "📉 Buy/Sell", "🗓️ Schedule"])
     if tool == "🚀 Smart Scanner":
