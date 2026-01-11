@@ -7,7 +7,7 @@
 **Apex GM** é uma ferramenta de *Data Science* desenvolvida para gerar vantagens competitivas em ligas de Fantasy Basketball da ESPN. Diferente da interface padrão, o Apex utiliza algoritmos proprietários para identificar ineficiências de mercado, prever resultados de matchups reais e automatizar a busca por trocas justas.
 
 
-### 🚀 Funcionalidades (The Apex Suite)
+## 🚀 Funcionalidades (The Apex Suite)
 
 ### 🧠 Smart Trade Hunter
 Não espere por ofertas. O algoritmo varre **todos os times da liga** simultaneamente para encontrar parceiros de troca ideais.
@@ -29,6 +29,26 @@ Detecta "Distressed Assets" (jogadores All-Star em má fase recente) para oportu
 
 ### 📢 League Buzz HQ
 Gera relatórios automáticos e narrativas engajadoras para o grupo da liga (WhatsApp/Discord), incluindo "Weekly Recaps" e Vereditos de Trocas.
+
+---
+
+## 📸 Interface (Apex em Ação)
+
+Abaixo estão exemplos reais da ferramenta em funcionamento, desenhada com um "Dark Mode" minimalista para focar apenas nos dados que importam.
+
+### ⚖️ League Trade Machine (O Veredito)
+*O algoritmo analisa os pacotes e emite um julgamento matemático instantâneo sobre quem venceu a troca.*
+![Trade Verdict](assets/trade_machine.png)
+
+### 💎 Waiver Sniper (A Mineração)
+*Varredura do mercado filtrando jogadores por potencial real (Tier S, A, B) e ignorando ruídos estatísticos.*
+![Waiver Wire](assets/waiver_wire.png)
+
+### ⚔️ Matchup Faceoff & Coach's Intel (Análise Tática)
+*Visão dupla: acima, a simulação do confronto baseada na rotação real. Abaixo, a IA do "Coach" identifica matematicamente oportunidades de upgrade no elenco (quem soltar e quem pegar).*
+![Matchup](assets/matchup.png)
+
+---
 
 ## 🛠️ Instalação e Uso
 
