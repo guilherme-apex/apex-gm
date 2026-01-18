@@ -1,14 +1,12 @@
-# Segurança (NUNCA SUBIR ISSO)
-apex_config.py
-secrets.toml
+#Arquivos de sistema e cache
+__pycache__/
+*.py[cod]
+.DS_Store
+
+#Ambientes virtuais
+venv/
 .env
 
-# Banco de Dados Local
-*.db
-*.sqlite3
-
-# Arquivos de Sistema e Cache Python
-__pycache__/
-*.pyc
-.DS_Store
-.vscode/
+#Arquivos de teste ou anotações pessoais
+*.txt
+!requirements.txt

@@ -1,7 +1,7 @@
 streamlit
 pandas
-numpy
+aiohttp
 requests
-plotly
-espn_api
-fake_useragent
+fake-useragent
+numpy
+lxml
