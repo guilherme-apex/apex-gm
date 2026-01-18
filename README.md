@@ -1,58 +1,60 @@
-# 🧬 Apex GM: Fantasy Basketball Analytics Tool
+# 🧬 Apex Fantasy Engine (Public Beta)
 
-![Status](https://img.shields.io/badge/Status-Active-success)
+![Status](https://img.shields.io/badge/Status-Public_Beta-success)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![League](https://img.shields.io/badge/Fantasy-ESPN-red)
+![Tech](https://img.shields.io/badge/Streamlit-SaaS-red)
 
-**Apex GM** é uma ferramenta de *Data Science* desenvolvida para gerar vantagens competitivas em ligas de Fantasy Basketball da ESPN. Diferente da interface padrão, o Apex utiliza algoritmos proprietários para identificar ineficiências de mercado, prever resultados de matchups reais e automatizar a busca por trocas justas.
+**Apex Fantasy Engine** é uma ferramenta de *Data Science* e análise preditiva para NBA Fantasy & DFS. Diferente de ferramentas que dependem de "achismo", o Apex utiliza algoritmos de média ponderada e análise de matchups em tempo real para identificar **ineficiências de mercado** (Moneyball).
 
-
-## 🚀 Funcionalidades (The Apex Suite)
-
-### 🧠 Smart Trade Hunter
-Não espere por ofertas. O algoritmo varre **todos os times da liga** simultaneamente para encontrar parceiros de troca ideais.
-- **Package Finder:** Encontra alvos para consolidação de trocas (2 ou 3 por 1).
-- **Arbitragem de Valor:** Identifica trocas matematicamente vantajosas.
-
-### ⚔️ Matchup Faceoff & Coach's Intel
-Uma simulação preditiva do confronto da semana.
-- **Real Rotation:** Ignora jogadores inativos e calcula a força real do elenco.
-- **Coach's Intel:** Sugere movimentos de Add/Drop comparando o "fundo do banco" com os melhores agentes livres disponíveis.
-
-### 💎 Waiver Sniper
-Encontra joias escondidas na Free Agency.
-- **Filtro de Ruído:** Remove jogadores com médias infladas por jogos únicos.
-- **Classificação por Tiers:** S (League Winner), A (Must Roster), B (Streamer).
-
-### 🦅 League Opportunity Radar
-Detecta "Distressed Assets" (jogadores All-Star em má fase recente) para oportunidades de *Buy Low*.
-
-### 📢 League Buzz HQ
-Gera relatórios automáticos e narrativas engajadoras para o grupo da liga (WhatsApp/Discord), incluindo "Weekly Recaps" e Vereditos de Trocas.
+🔗 **Acesse a Ferramenta Online:** [apex-fantasy.streamlit.app](https://apex-fantasy.streamlit.app/)
 
 ---
 
-## 📸 Interface (Apex em Ação)
+## 🚀 O Motor (Features)
 
-Abaixo estão exemplos reais da ferramenta em funcionamento, desenhada com um "Dark Mode" minimalista para focar apenas nos dados que importam.
+A ferramenta escaneia os 30 times da NBA instantaneamente através de APIs oficiais e processa os dados para gerar insights acionáveis:
 
-### ⚖️ League Trade Machine (O Veredito)
-*O algoritmo analisa os pacotes e emite um julgamento matemático instantâneo sobre quem venceu a troca.*
-![Trade Verdict](assets/trade_machine.png)
+### 🧠 Weighted Projections
+O algoritmo ignora médias simples da temporada. Ele aplica um peso dinâmico (**70% Forma Recente / 30% Histórico**) para projetar o que o jogador fará *hoje*.
 
-### 💎 Waiver Sniper (A Mineração)
-*Varredura do mercado filtrando jogadores por potencial real (Tier S, A, B) e ignorando ruídos estatísticos.*
-![Waiver Wire](assets/waiver_wire.png)
+### 🛡️ Matchup Analysis (Live)
+Cruza o calendário do dia com o **Ranking Defensivo** atualizado da NBA.
+- 🟢 **Green Light:** Jogador enfrenta uma das 5 piores defesas (Rank 25-30).
+- 🔴 **Red Flag:** Jogador enfrenta uma defesa de elite (Rank 1-10).
 
-### ⚔️ Matchup Faceoff & Coach's Intel (Análise Tática)
-*Visão dupla: acima, a simulação do confronto baseada na rotação real. Abaixo, a IA do "Coach" identifica matematicamente oportunidades de upgrade no elenco (quem soltar e quem pegar).*
-![Matchup](assets/matchup.png)
+### 🔥 Heat Check & Trends
+Identifica anomalias de performance.
+- **Trend Positiva (+):** Jogadores esquentando e ganhando minutos.
+- **Trend Negativa (❄️):** Estrelas em declínio ou perdendo espaço na rotação.
+
+### 💎 Moneyball Detector
+Filtra automaticamente as "Superestrelas" (>30 FPTS) para focar no que importa para quem joga Fantasy: **Waiver Wire Gems** e **Role Players** com alto potencial de retorno.
 
 ---
 
-## 🛠️ Instalação e Uso
+## 📸 Interface (Dark Mode UI)
 
-1. **Clone o repositório:**
-   ```bash
-   git clone [https://github.com/SEU_USUARIO/apex-gm.git](https://github.com/SEU_USUARIO/apex-gm.git)
-   cd apex-gm
+*A interface foi desenhada para ser responsiva (Mobile/Desktop) e direta ao ponto.*
+
+> *Nota: A ferramenta atualiza automaticamente estatísticas e lesões a cada acesso.*
+
+---
+
+## 🛠️ Tech Stack (Bastidores)
+
+Este projeto utiliza Engenharia de Dados moderna para garantir velocidade e estabilidade:
+
+* **Core:** Python 3.10+
+* **Front-end:** Streamlit Cloud (SaaS)
+* **Data Fetching:** `aiohttp` (Requisições Assíncronas para 30 endpoints simultâneos)
+* **Data Processing:** `pandas` & `numpy`
+* **Source:** ESPN Official Endpoints (Hidden APIs)
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Guilherme Lopes de Souza**.
+*Data Scientist turning stats into wins.*
+
+---
