@@ -275,13 +275,12 @@ if scan_btn:
                     icon = "❄️"
                     apex_score -= 1.0
                 
-                # UNIFIED NAME + TEAM ABBREVIATION (Clean UI)
                 player_display = f"{p_base['name']} ({p_base['team'].upper()})"
 
                 results.append({
-                    "Player": player_display, # Display Name
-                    "RawName": p_base['name'], # For tweet
-                    "Team": p_base['team'].upper(), # For logic
+                    "Player": player_display,
+                    "RawName": p_base['name'],
+                    "Team": p_base['team'].upper(),
                     "Pos": p_base['pos'],
                     "Today Matchup": matchup_str,
                     "Logo": TEAM_LOGO_URL.format(p_base['team']),
@@ -306,7 +305,6 @@ if scan_btn:
 if st.session_state['market_df'] is not None and not st.session_state['market_df'].empty:
     df = st.session_state['market_df']
     
-    # TABLE CONFIG: Logo gets the "Team" header. Name gets "Player" header.
     st.dataframe(
         df,
         column_order=["Logo", "Player", "Pos", "Today Matchup", "Projection", "Heat Check", "Efficiency", "Mins (L5)"],
@@ -345,28 +343,6 @@ if st.session_state['market_df'] is not None and not st.session_state['market_df
                 chart_df = pd.DataFrame(p_data['History'])
                 color = '#00ff00' if p_data['raw_trend'] >= 0 else '#ff4b4b'
                 st.line_chart(chart_df, x='Date', y='FPTS', color=color, height=300)
-        
-        # --- TWEET GENERATOR ---
-        st.write("")
-        st.subheader("Tweet Generator")
-        
-        rank = p_data['OppRank']
-        matchup_txt = p_data['Today Matchup'].split('(')[0].strip() if "(" in p_data['Today Matchup'] else p_data['Today Matchup']
-        
-        def_context = ""
-        if rank >= 25: def_context = "against a soft defense"
-        elif rank > 0 and rank <= 10: def_context = "despite the tough matchup"
-        
-        status = "playing" if "OFF" not in matchup_txt else "off"
-        
-        if p_data['raw_trend'] > 5:
-            tweet = f"🚀 {p_data['RawName']} is ON FIRE! Averaging {p_data['Projection']:.1f} FPTS lately. He is {status} {matchup_txt} {def_context}. Must start! 🔥 #NBAFantasy #{p_data['Team']}"
-        elif p_data['raw_trend'] < -5:
-            tweet = f"⚠️ {p_data['RawName']} trending down ({p_data['Heat Check']}). {status} {matchup_txt}. Keep an eye on minutes. #NBAFantasy"
-        else:
-            tweet = f"🔒 {p_data['RawName']} = Consistency. Projecting {p_data['Projection']:.1f} FPTS. Solid floor play {matchup_txt}. #DFS"
-        
-        st.text_area("Draft:", value=tweet, height=100)
 
 elif st.session_state['market_df'] is not None:
     st.warning("No players found. Try changing the date or filters.")
