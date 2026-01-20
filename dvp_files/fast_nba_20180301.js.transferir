@@ -1,0 +1,149 @@
+$(document).ready(function() {
+    $(document).ajaxStart(function() {
+        $('#player-search').hide();
+        $('#playerid, #playervs, #index-search, .wsi-search').attr('placeholder', 'Loading Players...').prop('disabled', true);
+    });
+
+    $(document).ajaxStop(function() {
+        $('#player-search').show();
+        $('#playerid, #playervs, #index-search, .wsi-search').attr('placeholder', '').prop('disabled', false);
+    });
+
+    var searchPlayers = false;
+
+    $('.search').one('click', function() {
+        searchPlayers = searchPlayers || getPlayersSource();
+    });
+
+    $('#playerid, #playervs, .wsi-search').one('focus', function() {
+        searchPlayers = searchPlayers || getPlayersSource();
+    });
+
+    function getPlayersSource() {
+        $.ajax({
+            type: 'GET',
+            dataType: 'json',
+            url: '/ajax/player-search.php',
+            data: { sport: 'NBA' }
+        }).done(function(data) {
+            searchPlayers = data;
+            initializeAutocompletes(searchPlayers);
+        });
+    }
+
+    function initializeAutocompletes(players) {
+        if ($('.playername').length) {
+            $('.playername').autocomplete({
+                source: players,
+                select: function(event, ui) {
+                    $('.playersearch').attr('value', ui.item.id);
+                    $('#player-search').submit();
+                    event.preventDefault();
+                },
+                focus: function(event, ui) {
+                    this.value = ui.item.name;
+                    event.preventDefault();
+                }
+            })
+            .data('ui-autocomplete')._renderItem = function(ul, item) {
+                return $('<li>')
+                .data('item.autocomplete', item)
+                .attr('data-pid', item.id+':'+((typeof item.ecr === 'undefined') ? 'NR' : item.ecr))
+                .append('<a>'+item.name+' ('+item.position+' - '+item.team+')</a>')
+                .appendTo(ul);
+            };
+        }
+
+        $('#playername').keydown(function(e) {
+            if (e.keyCode == 13) {
+                buildSearchResults('player-search');
+                $('#player-search').submit();
+                e.preventDefault();
+                return false;
+            }
+        });
+
+        if ($('#index-search').length) {
+            $('#index-search').autocomplete({
+                source: players,
+                select: function(event, ui) {
+                    $('.playersearch').attr('value', ui.item.id);
+                    ga('send', 'pageview', '/nba/players/?query='+encodeURIComponent($('#index-search').val()).replace(/%20/g,'+'));
+                    $('#index-search-form').submit();
+                    event.preventDefault();
+                },
+                focus: function(event, ui) {
+                    this.value = ui.item.name;
+                    event.preventDefault();
+                }
+            })
+            .data('ui-autocomplete')._renderItem = function(ul, item) {
+                return $('<li>')
+                .data('item.autocomplete', item)
+                .attr('data-pid', item.id+':'+((typeof item.ecr === 'undefined') ? 'NR' : item.ecr))
+                .append('<a>'+item.name+' ('+item.position+' - '+item.team+')</a>')
+                .appendTo(ul);
+            };
+
+
+            $('#index-search-submit').click(function(e) {
+                buildSearchResults('index-search-form');
+                ga('send', 'pageview', '/nba/players/?query='+encodeURIComponent($('#index-search').val()).replace(/%20/g,'+'));
+                $('#index-search-form').submit();
+                e.preventDefault();
+                return false;
+            });
+        }
+
+        if ($('#playerid').length) {
+            $('#playerid').autocomplete({
+                source: players,
+                select: function(event, ui) {
+                    $('#fastid').attr('value', ui.item.id);
+                    event.preventDefault();
+                },
+                focus: function(event, ui) {
+                    this.value = ui.item.name;
+                    event.preventDefault();
+                }
+            })
+            .data('ui-autocomplete')._renderItem = function(ul, item) {
+                return $('<li>')
+                .data('item.autocomplete', item)
+                .append('<a>'+item.name+' ('+item.position+' - '+item.team+')</a>')
+                .appendTo(ul);
+            };
+        }
+
+        if ($('#playervs').length) {
+            $('#playervs').autocomplete({
+                source: players,
+                select: function(event, ui) {
+                    $('#fastvs').attr('value', ui.item.id);
+                    event.preventDefault();
+                },
+                focus: function(event, ui) {
+                    this.value = ui.item.name;
+                    event.preventDefault();
+                }
+            })
+            .data('ui-autocomplete')._renderItem = function(ul, item) {
+                return $('<li>')
+                .data('item.autocomplete', item)
+                .append('<a>'+item.name+' ('+item.position+' - '+item.team+')</a>')
+                .appendTo(ul);
+            };
+        }
+    }
+
+    function buildSearchResults(formId) {
+        var results = [];
+        $('.ui-menu-item').each(function() { results.push($(this).data('pid')); });
+        $('<input>').attr({
+            type: 'hidden',
+            id: 'search-results',
+            name: 'search-results',
+            value: results
+        }).appendTo('#'+formId);
+    }
+});
